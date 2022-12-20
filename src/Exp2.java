@@ -1,67 +1,73 @@
 import java.util.Scanner;
 
 public class Exp2 {
+
+    //реализация второго задания
     public static void start(){
-        String[][] arr1 = {{"1","2","3","4","5"},
-                          {"6","-7","8","-9","10"},
-                          {"-1","-2","3","4","-5"}};
-        String[][] arr2 = {{"1","2","3","4","5"},
-                          {"6","-7","8","-9"},
-                          {"-1","-2","3","4","-5"}};
-        String[][] arr3 = {{"1","2","3","4","C"},
-                          {"6","-7","A","-9","10"},
-                          {"-1","-2","3","4","-5"}};
-        System.out.println("Выберите операцию:\n" +
-                "1 - Вычисление суммы\n" +
-                "2 - Ошибка размерности\n" +
-                "3 - Ошибка на ввод числа");
-        int numberTask = isNumber(new Scanner(System.in).next());
-        switch (numberTask) {
-            case 1:
-                System.out.println(sum2d(arr1));
-                break;
-            case 2:
-                sum2d(arr2);
-                break;
-            case 3:
-                sum2d(arr3);
-                break;
-        }
+
+        //Создание матрицы
+        System.out.printf("Введите колличество строк матрицы: ");
+        int row = Exp2.isNumber(new Scanner(System.in).next());
+        System.out.printf("Введите колличество столбцов матрицы: ");
+        int col = Exp2.isNumber(new Scanner(System.in).next());
+        String[][] arr1 = matrixCreate(col, row);
+
+        System.out.println(sum2d(arr1));
     }
 
+    //Метод из задания
     private static int sum2d(String[][] arr){
         int sum = 0;
         for (int i = 0; i < arr.length; i++) {
-            goingBeyondDimension(arr[i]);
+            goingBeyondDimension(arr[i]);               //Проверка на длинну строки
             for (int j = 0; j < 5; j++) {
-                isNumber(arr[i][j]);
+                isNumber(arr[i][j]);                    //Проверка на число
                 int val = Integer.parseInt(arr[i][j]);
                 sum += val;
             }
         }
+
         return sum;
     }
 
+    //Метод проверки на длинну строки
     private static void goingBeyondDimension(String[] arr){
         if (arr.length != 5){
             throw new RuntimeException("Выход за пределы размерности");
         }
     }
 
+    //Метод проверки на число
     public static int isNumber(String val) {
+
         char[] charArr = val.toCharArray();
-        int i;
-        if (charArr[0] != '-'){
-            i = 0;
-        } else{
+        int i = 0;
+
+        if (charArr[0] == '-'){                         //Проверка на отрицательное значение
             i = 1;
         }
+
         for (; i < charArr.length; i++) {
             if (!Character.isDigit(charArr[i])){
                 throw new RuntimeException("Значение не являеся числом");
             }
         }
+
         return Integer.parseInt(val);
+    }
+
+    //Метод создания матрицы
+    private static String[][] matrixCreate(int row, int col){
+
+        String[][] matrix = new String[col][row];
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                System.out.printf("A[" + i + "][" + j + "] = ");
+                matrix[i][j] = new Scanner(System.in).next();
+            }
+        }
+
+        return matrix;
     }
 
 }

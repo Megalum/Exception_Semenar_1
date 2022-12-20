@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         System.out.println("Выберите номер задания:\n" +
                 "1 - Сколько разных типов исключений вы тут сможете получить\n" +
                 "2 - Создание нового массива из двух предыдущих\n" +
